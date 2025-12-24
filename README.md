@@ -4,7 +4,6 @@ MuktoLipi is a professional, open-source Bangla phonetic transliteration tool bu
 
 ## Features
 
-- **Official Avro Engine**: Powered by the official Avro phonetic engine for accurate transliteration.
 - **Smart Suggestions**: Real-time word suggestions with easy arrow key navigation.
 - **i18n Support**: Full Internationalization support for English and Bengali languages.
 - **Beautiful UI**: Modern, responsive design with Lucide icons and dark/light mode.
