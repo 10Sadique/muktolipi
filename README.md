@@ -26,7 +26,7 @@ Check out the source code and contribute: [https://github.com/10Sadique/muktolip
 
 ## Motivation
 
-Inspired by the wonderful work of the Avro team. This project aims to bring a modern, web-first experience to Bengali phonetic typing. ভাষা হোক উন্মুক্ত
+Inspired by the wonderful work of the Avro team. This project aims to bring a modern, web-first experience to Bengali phonetic typing. **ভাষা হোক উন্মুক্ত**
 
 ---
 Made with ❤️ for Bengali speakers worldwide.
