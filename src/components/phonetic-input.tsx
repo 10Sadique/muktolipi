@@ -59,10 +59,10 @@ export function PhoneticInput({ placeholder }: PhoneticInputProps) {
   }, [closeSuggestions]);
 
   return (
-    <div className="w-full max-w-2xl md:max-w-5xl mx-auto space-y-6 px-2 md:px-0">
+    <div className="w-full max-w-2xl md:max-w-5xl mx-auto space-y-8 px-4 md:px-0 animate-reveal-up">
       {/* Input Section */}
-      <Card className="relative overflow-visible bg-gradient-to-br from-card to-card/80 border-border/50 shadow-xl !py-0">
-        <CardContent className="p-3">
+      <Card className="relative overflow-visible glass-card border-white/10 shadow-premium !py-0 transition-all duration-300">
+        <CardContent className="p-4">
           <div className="space-y-4">
             {/* Label */}
             <div className="flex items-center justify-between">
@@ -89,7 +89,7 @@ export function PhoneticInput({ placeholder }: PhoneticInputProps) {
                 onChange={(e) => handleInputChange(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder={placeholder || t.app.placeholder}
-                className="min-h-[160px] md:min-h-[200px] text-lg px-4 py-3 bg-background/50 border-border/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all resize-none"
+                className="min-h-[160px] md:min-h-[200px] text-lg md:text-xl px-5 py-4 bg-background/30 border-white/5 focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10 transition-all duration-300 resize-none rounded-xl"
                 autoComplete="off"
                 autoCorrect="off"
                 autoCapitalize="off"
@@ -118,9 +118,9 @@ export function PhoneticInput({ placeholder }: PhoneticInputProps) {
       </Card>
 
       {/* Output Section */}
-      <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20 shadow-xl !py-0">
-        <CardContent className="p-3">
-          <div className="space-y-3">
+      <Card className="glass-card border-white/10 shadow-premium !py-0 transition-all duration-300">
+        <CardContent className="p-4">
+          <div className="space-y-4">
             <div className="flex items-center justify-between">
               <label className="text-sm font-medium text-muted-foreground">
                 {t.app.output_label}
@@ -146,13 +146,13 @@ export function PhoneticInput({ placeholder }: PhoneticInputProps) {
                 </Button>
               )}
             </div>
-            <div className="min-h-[160px] md:min-h-[200px] p-4 rounded-lg bg-background/50 border border-border/30">
+            <div className="min-h-[160px] md:min-h-[200px] p-6 rounded-xl bg-background/30 border border-white/5 backdrop-blur-sm">
               {outputText ? (
-                <p className="text-2xl leading-relaxed text-foreground whitespace-pre-wrap break-words">
+                <p className="text-2xl md:text-3xl leading-relaxed text-foreground whitespace-pre-wrap break-words tracking-wide">
                   {outputText}
                 </p>
               ) : (
-                <p className="text-lg text-muted-foreground/50 italic">
+                <p className="text-lg text-muted-foreground/40 italic">
                   {t.app.empty_output}
                 </p>
               )}
