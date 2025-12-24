@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { useTheme } from './theme-provider';
 import { PhoneticGuide } from './phonetic-guide';
 import { Switch } from '@/components/ui/switch';
-import { Sun, Moon } from 'lucide-react';
+import { Sun, Moon, Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface HeaderProps {
@@ -41,6 +41,23 @@ export function Header({ className }: HeaderProps) {
         
         {/* Controls */}
         <div className="flex items-center gap-1.5 md:gap-4 shrink-0">
+          {/* GitHub Link */}
+          <Button
+            variant="ghost"
+            size="icon"
+            asChild
+            className="text-muted-foreground hover:text-foreground h-8 w-8"
+          >
+            <a
+              href="https://github.com/10Sadique/muktolipi"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View source on GitHub"
+            >
+              <Github className="h-4 w-4" />
+            </a>
+          </Button>
+          
           <LanguageToggle />
           <PhoneticGuide />
           
