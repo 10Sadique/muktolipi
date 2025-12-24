@@ -1,13 +1,13 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
-import { LanguageToggle } from './language-toggle';
 import { useI18n } from '@/lib/i18n-context';
+import { useEffect, useState } from 'react';
+import { LanguageToggle } from './language-toggle';
 
-import { cn } from '@/lib/utils';
-import { PhoneticGuide } from './phonetic-guide';
-import { Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { Github } from 'lucide-react';
+import { PhoneticGuide } from './phonetic-guide';
 
 interface HeaderProps {
   className?: string;

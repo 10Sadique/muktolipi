@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useCallback, useMemo } from 'react';
-import { toBengali, shouldAttachToPrevious } from '@/lib/avro-phonetic';
-import { getSuggestions, DictionaryEntry } from '@/lib/bangla-dictionary';
+import { toBengali } from '@/lib/avro-phonetic';
+import { DictionaryEntry, getSuggestions } from '@/lib/bangla-dictionary';
+import { useCallback, useMemo, useState } from 'react';
 
 // Structure to track word segments (English phonetic -> Bengali)
 interface WordSegment {
