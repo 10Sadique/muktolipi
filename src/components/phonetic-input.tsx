@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import { SuggestionList } from './suggestion-list';
 import { usePhoneticInput } from '@/hooks/use-phonetic-input';
@@ -8,6 +8,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useI18n } from '@/lib/i18n-context';
 import { Copy, Check } from 'lucide-react';
+import { getCaretCoordinates, CaretCoordinates } from '@/lib/textarea-caret';
+import { cn } from '@/lib/utils';
 
 interface PhoneticInputProps {
   placeholder?: string;
@@ -17,6 +19,7 @@ export function PhoneticInput({ placeholder }: PhoneticInputProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const { t } = useI18n();
   const [copied, setCopied] = useState(false);
+  const [caretPos, setCaretPos] = useState<CaretCoordinates | null>(null);
   
   const {
     displayValue,
@@ -58,10 +61,26 @@ export function PhoneticInput({ placeholder }: PhoneticInputProps) {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [closeSuggestions]);
 
+  // Update caret position when content or selection changes
+  const updateCaretPos = useCallback(() => {
+    if (textareaRef.current) {
+      const position = textareaRef.current.selectionEnd;
+      const coords = getCaretCoordinates(textareaRef.current, position);
+      setCaretPos(coords);
+    }
+  }, []);
+
+  useEffect(() => {
+    updateCaretPos();
+  }, [displayValue, updateCaretPos]);
+
   return (
     <div className="w-full max-w-2xl md:max-w-5xl mx-auto space-y-8 px-4 md:px-0 animate-reveal-up">
       {/* Input Section */}
-      <Card className="relative overflow-visible glass-card border-white/10 shadow-premium !py-0 transition-all duration-300">
+      <Card className={cn(
+        "relative glass-card border-white/10 shadow-premium !py-0 transition-all duration-300",
+        showSuggestions ? "z-20" : "z-10"
+      )}>
         <CardContent className="p-4">
           <div className="space-y-4">
             {/* Label */}
@@ -86,10 +105,18 @@ export function PhoneticInput({ placeholder }: PhoneticInputProps) {
               <Textarea
                 ref={textareaRef}
                 value={displayValue}
-                onChange={(e) => handleInputChange(e.target.value)}
-                onKeyDown={handleKeyDown}
+                onChange={(e) => {
+                  handleInputChange(e.target.value);
+                  updateCaretPos();
+                }}
+                onKeyDown={(e) => {
+                  handleKeyDown(e);
+                  updateCaretPos();
+                }}
+                onClick={updateCaretPos}
+                onKeyUp={updateCaretPos}
                 placeholder={placeholder || t.app.placeholder}
-                className="min-h-[160px] md:min-h-[200px] text-lg md:text-xl px-5 py-4 bg-background/30 border-white/5 focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10 transition-all duration-300 resize-none rounded-xl"
+                className="min-h-[400px] md:min-h-[500px] text-lg md:text-xl px-5 py-4 bg-background/30 border-white/5 focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/10 transition-all duration-300 resize-none rounded-xl"
                 autoComplete="off"
                 autoCorrect="off"
                 autoCapitalize="off"
@@ -102,6 +129,7 @@ export function PhoneticInput({ placeholder }: PhoneticInputProps) {
                 selectedIndex={selectedIndex}
                 onSelect={selectSuggestion}
                 visible={showSuggestions}
+                position={caretPos}
               />
             </div>
 
@@ -118,7 +146,7 @@ export function PhoneticInput({ placeholder }: PhoneticInputProps) {
       </Card>
 
       {/* Output Section */}
-      <Card className="glass-card border-white/10 shadow-premium !py-0 transition-all duration-300">
+      <Card className="relative z-0 glass-card border-white/10 shadow-premium !py-0 transition-all duration-300">
         <CardContent className="p-4">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
